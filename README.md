@@ -15,7 +15,9 @@
   ```
   данных в таблицы Product (`python manage.py load_product_fixture`)
   и таблицы Category (`python manage.py load_category_fixture`)
-
+### !!!ВНИМАНИЕ!!!
+Перед использованием `python manage.py load_product_fixture` ОБЯЗАТЕЛЬНО необходимо 
+провести загрузку `python manage.py load_category_fixture`, иначе будет ошибка
 
 ## Установка
 1. Клонировать репозиторий
@@ -37,4 +39,3 @@
   * создать суперпользователя `python manage.py createsuperuser`
   * зайти на `<основная ссылка>/admin`, ввести user и password
 
-* 
