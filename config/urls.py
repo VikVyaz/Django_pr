@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from catalog.views import home
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', home, name='home'),  # <--Для постановки home.html как домашняя страница
-    path('', include('catalog.urls', namespace='catalog')),
+    path('catalog/', include('catalog.urls', namespace='catalog')),
+    path('blog/', include('blog.urls', namespace='blog')),
 ]
 
 if settings.DEBUG:
