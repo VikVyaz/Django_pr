@@ -13,10 +13,24 @@
     <div class="col-4"></div>
     <div class="col-4">
         <ul class="list-group">
+            {% if product.image %}
             <li class="list-group-item"><img class="img-thumbnail" src="{{ product.image.url }}"></li>
+            {% else %}
+            <li class="list-group-item">Изображение отсутствует</li>
+            {% endif %}
+
             <li class="list-group-item fw-bold fs-2">{{ product.price }}$</li>
             <li class="list-group-item">Описание: {{ product.description }}</li>
             <li class="list-group-item">Категория: {{ product.category.name }}</li>
+            <li class="list-group-item">
+                <a href="{% url 'catalog:edit_product' product.pk %}">Редактировать</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'catalog:home' %}">Обратно в каталог</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'catalog:delete_product' product.pk %}" style="link-warning">Удалить</a>
+            </li>
         </ul>
     </div>
     <div class="col-4"></div>

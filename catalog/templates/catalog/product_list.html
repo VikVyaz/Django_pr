@@ -26,7 +26,11 @@
     {% for prod in prods %}
     <div class="col-3">
         <div class="card mb-4 box-shadow">
+            {% if prod.image %}
             <img class="card-img-top" src="{{ prod.image.url }}" style="height: 150px; object-fit: cover;" alt="Нет изображения">
+            {% else %}
+            <img class="card-img-top" src="#" style="height: 150px; object-fit: cover;" alt="Нет изображения">
+            {% endif %}
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">{{ prod.name }}</h4>
             </div>
