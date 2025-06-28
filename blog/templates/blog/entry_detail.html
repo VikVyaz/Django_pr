@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
 
-</body>
-</html>
+{% block title %}{{ entry.title }}{% endblock %} %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">{{ entry.title }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <ul class="list-group">
+            {% if entry.preview %}
+            <li class="list-group-item"><img class="img-thumbnail" src="{{ entry.preview.url }}"></li>
+            {% else %}
+            <li class="list-group-item">Изображение отсутствует</li>
+            {% endif %}
+
+            <li class="list-group-item">Контент: {{ entry.content }}</li>
+            <li class="list-group-item">Просмотры: {{ entry.view_counter }}</li>
+            <li class="list-group-item">
+                <a href="{% url 'blog:entry_edit' entry.pk %}">Редактировать</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'blog:entry_list' %}">Обратно к публикациям</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'blog:entry_delete' entry.pk %}" style="link-warning">Удалить</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

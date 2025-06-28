@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
 
-</body>
-</html>
+{% block title %}Удаление публикации{% endblock %} %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Удалить {{ entry.title }}???</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <form method="POST">
+            {% csrf_token %}
+
+            <p>Точно удалить '{{ entry.title }}'??? </p>
+            <button type="submit" class="btn btn-primary">Удалить</button>
+        </form>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

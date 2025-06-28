@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
 
-</body>
-</html>
+{% block title %}Создание публикации{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Создание публикации</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center mt-5">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="form-floating">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Оглавление"
+                           required>
+                </div>
+                <div class="mb-3">
+                        <textarea name="content" class="form-control" id="content"
+                                  placeholder="Текст публикации" required></textarea>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="preview">Превью</label>
+                    <input type="file" class="form-control" id="preview" name="preview">
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="is_active">Активность публикации</label>
+                    <select class="form-select" id="is_active" name="is_active">
+                        <option value="False">Не активна</option>
+                        <option value="True">Активна</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Создать пост</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-3"></div>
+</div>
+{% endblock %}
