@@ -15,32 +15,8 @@
         <div class="card-body">
             <form method="post" enctype="multipart/form-data" class="form-floating">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Название продукта"
-                           required>
-                </div>
-                <div class="mb-3">
-                        <textarea name="description" class="form-control" id="description"
-                                  placeholder="Описание" required></textarea>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="number" min="0" step="0.01" name="price" class="form-control" id="price"
-                           placeholder="Цена"
-                           aria-label="Amount (to the nearest dollar)" required>
-                </div>
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="category">Категория</label>
-                    <select class="form-select" id="category" name="category">
-                        {% for cat in categories %}
-                        <option value="{{ cat.id }}">{{ cat.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="image">Изображение продукта</label>
-                    <input type="file" class="form-control" id="image" name="image">
-                </div>
+                {{ from.non_field_errors }}
+                {{ form.as_p }}
                 <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Отправить</button>
             </form>
         </div>
