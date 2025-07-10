@@ -3,34 +3,33 @@ from .models import Product
 from django.core.exceptions import ValidationError
 
 
-class ProductForm(ModelForm):
+class StyleFromMixin:
+    placeholder_data = {}
+    form_class_data = {}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        product_placeholder = {
-            'name': 'Наименование продукта',
-            'description': 'Описание продукта',
-            'image': 'Изображение продукта',
-            'category': 'Категория продукта',
-            'price': 'Цена продукта'
-        }
-
-        form_class = {
-            'name': 'form-control',
-            'description': 'form-control',
-            'price': 'form-control',
-            'category': 'form-select',
-            'image': 'form-control'
-        }
-
         for name, field in self.fields.items():
             data = {
-                'class': form_class.get(name, 'form-control'),
-                'placeholder': product_placeholder.get(name, '')
+                'class': self.form_class_data.get(name, 'form-control'),
+                'placeholder': self.placeholder_data.get(name, '')
             }
 
             self.fields[name].widget.attrs.update(data)
+
+
+class ProductForm(StyleFromMixin, ModelForm):
+    placeholder_data = {
+        'name': 'Наименование продукта',
+        'description': 'Описание продукта',
+        'image': 'Изображение продукта',
+        'category': 'Категория продукта',
+        'price': 'Цена продукта'
+    }
+
+    form_class_data = {
+        'category': 'form-select'
+    }
 
     @staticmethod
     def __ban_bad_words(context):
