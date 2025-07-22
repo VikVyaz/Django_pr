@@ -1,0 +1,23 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Регистрация</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    <div class="row align-items-center mb-3 mt-4">
+        <div class="col-4"></div>
+        <div class="col-4 align-item-center">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Зарегистрировать</button>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</form>
+{% endblock %}

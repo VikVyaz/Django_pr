@@ -12,6 +12,9 @@ psycopg2 = "^2.9.10"
 dotenv = "^0.9.9"
 ipython = "^9.3.0"
 pillow = "^11.2.1"
+django-countries = "^7.6.1"
+django-phonenumber-field = {extras = ["phonenumbers"], version = "^8.1.0"}
+python-decouple = "^3.8"
 
 
 [build-system]

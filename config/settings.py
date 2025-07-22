@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from decouple import config
+
 
 load_dotenv(override=True)
 
@@ -32,6 +34,7 @@ INSTALLED_APPS = [
 
     "catalog",
     "blog",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -123,3 +126,18 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = 'users.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('YANDEX_EMAIL_HOST')
+EMAIL_PORT = config('YANDEX_EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('YANDEX_EMAIL_USE_TLS', cast=bool)
+EMAIL_USE_SSL = config('YANDEX_EMAIL_USE_SSL', cast=bool)
+EMAIL_HOST_USER = config('YANDEX_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('YANDEX_EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LOGIN_REDIRECT_URL = 'catalog:home'
+LOGOUT_REDIRECT_URL = 'catalog:home'
+LOGIN_URL = 'users:login'

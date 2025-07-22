@@ -72,6 +72,46 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-countries"
+version = "7.6.1"
+description = "Provides a country field for Django models."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-countries-7.6.1.tar.gz", hash = "sha256:c772d4e3e54afcc5f97a018544e96f246c6d9f1db51898ab0c15cd57e19437cf"},
+    {file = "django_countries-7.6.1-py3-none-any.whl", hash = "sha256:1ed20842fe0f6194f91faca21076649513846a8787c9eb5aeec3cbe1656b8acc"},
+]
+
+[package.dependencies]
+asgiref = "*"
+typing-extensions = "*"
+
+[package.extras]
+dev = ["black", "django", "djangorestframework", "graphene-django", "pytest", "pytest-django", "tox (==4.*)"]
+maintainer = ["django", "zest.releaser[recommended]"]
+pyuca = ["pyuca"]
+test = ["djangorestframework", "graphene-django", "pytest", "pytest-cov", "pytest-django"]
+
+[[package]]
+name = "django-phonenumber-field"
+version = "8.1.0"
+description = "An international phone number field for django models."
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "django_phonenumber_field-8.1.0-py3-none-any.whl", hash = "sha256:9ba66873bf47401b13fc57797fbf85e785864a6bfdc8b9daa3a9012886567045"},
+    {file = "django_phonenumber_field-8.1.0.tar.gz", hash = "sha256:f19450625574ad3a2de047c409527d0e57699496849e71e53b53e8679ff67b27"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+phonenumbers = {version = ">=7.0.2", optional = true, markers = "extra == \"phonenumbers\""}
+
+[package.extras]
+phonenumbers = ["phonenumbers (>=7.0.2)"]
+phonenumberslite = ["phonenumberslite (>=7.0.2)"]
+
+[[package]]
 name = "dotenv"
 version = "0.9.9"
 description = "Deprecated package"
@@ -204,6 +244,17 @@ files = [
 
 [package.dependencies]
 ptyprocess = ">=0.5"
+
+[[package]]
+name = "phonenumbers"
+version = "9.0.10"
+description = "Python version of Google's common library for parsing, formatting, storing and validating international phone numbers."
+optional = false
+python-versions = "*"
+files = [
+    {file = "phonenumbers-9.0.10-py2.py3-none-any.whl", hash = "sha256:13b12d269be1f2b363c9bc2868656a7e2e8b50f1a1cef629c75005da6c374c6b"},
+    {file = "phonenumbers-9.0.10.tar.gz", hash = "sha256:c2d15a6a9d0534b14a7764f51246ada99563e263f65b80b0251d1a760ac4a1ba"},
+]
 
 [[package]]
 name = "pillow"
@@ -377,6 +428,17 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "python-decouple"
+version = "3.8"
+description = "Strict separation of settings from code."
+optional = false
+python-versions = "*"
+files = [
+    {file = "python-decouple-3.8.tar.gz", hash = "sha256:ba6e2657d4f376ecc46f77a3a615e058d93ba5e465c01bbe57289bfb7cce680f"},
+    {file = "python_decouple-3.8-py3-none-any.whl", hash = "sha256:d0d45340815b25f4de59c974b855bb38d03151d81b037d9e3f463b0c9f8cbd66"},
+]
+
+[[package]]
 name = "python-dotenv"
 version = "1.1.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
@@ -440,6 +502,17 @@ docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
 test = ["argcomplete (>=3.0.3)", "mypy (>=1.7.0)", "pre-commit", "pytest (>=7.0,<8.2)", "pytest-mock", "pytest-mypy-testing"]
 
 [[package]]
+name = "typing-extensions"
+version = "4.14.1"
+description = "Backported and Experimental Type Hints for Python 3.9+"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "typing_extensions-4.14.1-py3-none-any.whl", hash = "sha256:d1e1e3b58374dc93031d6eda2420a48ea44a36c2b4766a4fdeb3710755731d76"},
+    {file = "typing_extensions-4.14.1.tar.gz", hash = "sha256:38b39f4aeeab64884ce9f74c94263ef78f3c22467c8724005483154c26648d36"},
+]
+
+[[package]]
 name = "tzdata"
 version = "2025.2"
 description = "Provider of IANA time zone data"
@@ -464,4 +537,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "2dff304273da2db5fbcc7ad8e2529770f4b48dc8b1f7bb4b7e0799b528990593"
+content-hash = "913ebad9cdcc26a52b14ab177b7065a99460f6f28f90affe4dbd96936fadb0ac"

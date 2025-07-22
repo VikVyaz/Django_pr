@@ -3,7 +3,7 @@ from .models import Product
 from django.core.exceptions import ValidationError
 
 
-class StyleFromMixin:
+class StyleFormMixin:
     placeholder_data = {}
     form_class_data = {}
 
@@ -18,7 +18,7 @@ class StyleFromMixin:
             self.fields[name].widget.attrs.update(data)
 
 
-class ProductForm(StyleFromMixin, ModelForm):
+class ProductForm(StyleFormMixin, ModelForm):
     placeholder_data = {
         'name': 'Наименование продукта',
         'description': 'Описание продукта',
