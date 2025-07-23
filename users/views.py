@@ -1,8 +1,10 @@
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
-from .forms import UserRegisterFrom
+from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import UserRegisterFrom, UserUpdateForm
 from django.core.mail import send_mail
 from decouple import config
+from .models import User
 
 
 class RegisterView(CreateView):
@@ -21,3 +23,10 @@ class RegisterView(CreateView):
         from_email = 'mail.djan@yandex.com'
         recipient_list = [user_email,]
         send_mail(subject, message, from_email, recipient_list)
+
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'users/update.html'
+    form_class = UserUpdateForm
+    success_url = reverse_lazy('catalog:home')

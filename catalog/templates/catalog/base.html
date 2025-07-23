@@ -18,6 +18,7 @@
             </div>
             <div class="col-6 d-flex justify-content-end align-items-center gap-2">
                 {% if user.is_authenticated %}
+                <a class="p-2 btn btn-outline-primary" href="{% url 'users:update' user.pk %}">Редактировать аккаунт</a>
                 <form method="post" action="{% url 'users:logout' %}" class="d-inline">
                     {% csrf_token %}
                     <button type="submit" class="p-2 btn btn-outline-primary">Выйти из аккаунта</button>
