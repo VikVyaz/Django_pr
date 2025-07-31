@@ -35,13 +35,20 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'product'
 
 
-class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     extra_context = {'categories': Category.objects.all()}
     success_url = reverse_lazy('catalog:home')
-    permission_required = 'catalog.change_product'
+
+    def get_form_class(self):
+        user = self.request.user
+
+        if user == self.object.owner:
+            return ProductForm
+        else:
+            raise PermissionDenied('Нет доступа редактировать продукт')
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
