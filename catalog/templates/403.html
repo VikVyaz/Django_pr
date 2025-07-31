@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+<div class="row text-center mt-5">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <h2>Нет доступа</h2>
+        <p>
+            <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               href="{% url 'catalog:home' %}">
+                Вернуться к каталогу
+            </a>
+        </p>
+        <p>
+            <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               href="javascript:history.back()">
+                Назад к продукту
+            </a>
+        </p>
+    </div>
+    <div class="col-4"></div>
+
+</div>
+{% endblock %}

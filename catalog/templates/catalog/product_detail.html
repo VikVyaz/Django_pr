@@ -18,19 +18,36 @@
             {% else %}
             <li class="list-group-item">Изображение отсутствует</li>
             {% endif %}
-
+            <li class="list-group-item">{{ product.is_published }}</li>
+            <li class="list-group-item">
+                <form action="{% url 'catalog:unpublish_product' product.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="submit">
+                        {% if product.is_published %}
+                        Снять с публикации
+                        {% else %}
+                        Опубликовать
+                        {% endif %}
+                    </button>
+                </form>
+            </li>
             <li class="list-group-item fw-bold fs-2">{{ product.price }}$</li>
             <li class="list-group-item">Описание: {{ product.description }}</li>
             <li class="list-group-item">Категория: {{ product.category.name }}</li>
+
+            {% if user == product.owner %}
             <li class="list-group-item">
                 <a href="{% url 'catalog:edit_product' product.pk %}">Редактировать</a>
             </li>
             <li class="list-group-item">
-                <a href="{% url 'catalog:home' %}">Обратно в каталог</a>
-            </li>
-            <li class="list-group-item">
                 <a href="{% url 'catalog:delete_product' product.pk %}" style="link-warning">Удалить</a>
             </li>
+            {% endif %}
+
+            <li class="list-group-item">
+                <a href="{% url 'catalog:home' %}">Обратно в каталог</a>
+            </li>
+
         </ul>
     </div>
     <div class="col-4"></div>
