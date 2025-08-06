@@ -1,8 +1,8 @@
 import os
-from dotenv import load_dotenv
 from pathlib import Path
-from decouple import config
 
+from decouple import config
+from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.getenv('DEBUG') == 'True' else False
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -141,3 +141,12 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 LOGIN_REDIRECT_URL = 'catalog:home'
 LOGOUT_REDIRECT_URL = 'catalog:home'
 LOGIN_URL = 'users:login'
+
+CACHE_ENABLE = config('CACHE_ENABLE', cast=bool)
+if CACHE_ENABLE:
+    CACHES = {
+        'default': {
+            "BACKEND": config('CACHE_BACKEND'),
+            "LOCATION": config('CACHE_LOCATION'),
+        }
+    }

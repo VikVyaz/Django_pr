@@ -1,14 +1,16 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
-from .models import Product, Category
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import UpdateView, DeleteView, CreateView
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
 from .forms import ProductForm
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.core.exceptions import PermissionDenied
+from .models import Category, Product
+from .services import get_products_by_category, get_products_from_cache
 
 
 class UnpublishProductView(LoginRequiredMixin, View):
@@ -25,9 +27,30 @@ class UnpublishProductView(LoginRequiredMixin, View):
         return redirect('catalog:product_details', pk=pk)
 
 
+class ProductsByCategoryListView(ListView):
+    model = Product
+    template_name = 'product_list.html'
+    context_object_name = 'prods'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, pk=self.kwargs['pk'])
+        return Product.objects.filter(category=self.category)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        context['categories'] = Category.objects.all()
+        return context
+
+
 class ProductListView(ListView):
     model = Product
     context_object_name = 'prods'
+    extra_context = {'categories': Category.objects.all()}
+
+    def get_queryset(self):
+        return get_products_from_cache()
+        # return get_products_by_category('category_1')
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
@@ -90,57 +113,3 @@ class ContactView(View):
         print(f'Спасибо {name}, с номером "{phone}" и сообщением "{message}". Данные в сохранность!')
 
         return HttpResponseRedirect(reverse_lazy('catalog:home'))
-
-# def home(request):
-#     products = Product.objects.all()
-#     context = {
-#         'prods': products
-#     }
-#     return render(request, 'catalog/home.html', context=context)
-
-
-# def contacts(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         phone = request.POST.get('phone')
-#         message = request.POST.get('message')
-#
-#         return HttpResponse(f'Спасибо {name}, с номером "{phone}" и сообщением "{message}". Данные в сохранность!)')
-#     return render(request, 'catalog/contacts.html')
-
-
-# def product_details(request, product_id):
-#
-#     product = get_object_or_404(Product, id=product_id)
-#     context = {
-#         'product': product
-#     }
-#
-#     return render(request, 'catalog/product_detail.html', context=context)
-
-
-# def to_add_product(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         description = request.POST.get('description')
-#         price = request.POST.get('price')
-#         category_id = request.POST.get('category')
-#         image = request.FILES.get('image')
-#
-#         category = Category.objects.get(id=category_id)
-#
-#         Product.objects.create(
-#             name=name,
-#             description=description,
-#             price=price,
-#             category=category,
-#             image=image
-#         )
-#
-#         return redirect('home')
-#
-#     categories = Category.objects.all()
-#     context = {
-#         "categories": categories
-#     }
-#     return render(request, 'catalog/product_form.html', context=context)

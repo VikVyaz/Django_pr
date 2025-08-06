@@ -1,8 +1,10 @@
-from django.urls import path
-from users.apps import UsersConfig
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import RegisterView, UserUpdateView
+from django.urls import path
+
+from users.apps import UsersConfig
+
 from .forms import CustomAuthForm
+from .views import RegisterView, UserUpdateView
 
 app_name = UsersConfig.name
 

@@ -1,10 +1,11 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic.edit import UpdateView
 from phonenumber_field.modelfields import PhoneNumberField
-from django.contrib.auth import get_user_model
 
 from catalog.forms import StyleFormMixin
+
 from .models import User
 
 

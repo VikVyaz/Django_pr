@@ -18,14 +18,17 @@
             <button type="button" class="btn btn-primary">Добавить свой продукт</button>
         </a>
     </div>
-    <div class="col-3">
+    <div class="col-1">
+        <p>Категория: {{ category }}</p>
+    </div>
+    <div class="col-2">
         <div class="dropdown">
             <button class="p-2 btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                 Категории
             </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'catalog:home' %}">Все</a></li>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item active" href="{% url 'catalog:home' %}">Все</a></li>
                 {% for cat in categories %}
                     <li><a class="dropdown-item" href="{% url 'catalog:products_by_category' cat.pk %}">{{ cat.name }}</a></li>
                 {% endfor %}

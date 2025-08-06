@@ -1,9 +1,10 @@
+from decouple import config
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .forms import UserRegisterFrom, UserUpdateForm
-from django.core.mail import send_mail
-from decouple import config
 from .models import User
 
 

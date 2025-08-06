@@ -1,6 +1,7 @@
-from django.forms import ModelForm
-from .models import Product
 from django.core.exceptions import ValidationError
+from django.forms import ModelForm
+
+from .models import Product
 
 
 class StyleFormMixin:
