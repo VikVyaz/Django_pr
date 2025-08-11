@@ -1,0 +1,69 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Каталог{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Skystore</h1>
+    <p class="lead">Skystore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
+        продать</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-3"></div>
+    <div class="col-3">
+        <a href="{% url 'catalog:to_add_product' %}">
+            <button type="button" class="btn btn-primary">Добавить свой продукт</button>
+        </a>
+    </div>
+    <div class="col-3">
+        <div class="dropdown">
+            <button class="p-2 btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Категории
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'catalog:home' %}">Все</a></li>
+                {% for cat in categories %}
+                    <li><a class="dropdown-item" href="{% url 'catalog:products_by_category' cat.pk %}">{{ cat.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-3"></div>
+</div>
+
+<div class="row text-center mt-5">
+    {% if prods %}
+    {% for prod in prods %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            {% if prod.image %}
+            <img class="card-img-top" src="{{ prod.image.url }}" style="height: 150px; object-fit: cover;"
+                 alt="Нет изображения">
+            {% else %}
+            <img class="card-img-top" src="#" style="height: 150px; object-fit: cover;" alt="Нет изображения">
+            {% endif %}
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ prod.name }}</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">{{ prod.price }} $</h1>
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>- {{ prod.description|truncatechars:20 }}</li>
+                </ul>
+                <a href="{% url 'catalog:product_details' prod.id %}">
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Детали</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h2>Каталог пуст</h2>
+    {% endif %}
+</div>
+{% endblock %}
+

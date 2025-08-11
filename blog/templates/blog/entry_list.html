@@ -1,0 +1,53 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Блог{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Блог</h1>
+    <p class="lead">Личный блог</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-4"></div>
+        <div class="col-4">
+            <a href="{% url 'blog:entry_form' %}">
+                <button type="button" class="btn btn-primary">Добавить пост</button>
+            </a>
+        </div>
+    <div class="col-4"></div>
+</div>
+
+<div class="row text-center mt-5">
+    {% if blog_entries %}
+    {% for entry in blog_entries %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            {% if entry.preview %}
+            <img class="card-img-top" src="{{ entry.preview.url }}" style="height: 150px; object-fit: cover;" alt="Нет изображения">
+            {% else %}
+            <img class="card-img-top" src="#" style="height: 150px; object-fit: cover;" alt="Нет изображения">
+            {% endif %}
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ entry.title }}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>{{ entry.content|truncatechars:20 }}</li>
+                    <li>Просмотры: {{ entry.view_counter }}</li>
+                </ul>
+                <a href="{% url 'blog:entry_detail' entry.pk %}">
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h2>Нет публикаций</h2>
+    {% endif %}
+</div>
+{% endblock %}
+
